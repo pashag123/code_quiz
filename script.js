@@ -1,23 +1,23 @@
 var questions = [
   {
-    title: 'Commonly used data types DO NOT include:',
-    choices: ['strings', 'booleans', 'alerts', 'numbers'],
-    answer: 'alerts',
+    title: 'What is reviewed as the scariest movie ever made?:',
+    choices: ['Halloween', 'The Exorcist', 'llamagedon', 'Friday the 13th'],
+    answer: 'The Exorcist',
   },
   {
-    title: 'The condition in an if / else statement is enclosed within ____.',
-    choices: ['quotes', 'curly brackets', 'parentheses', 'square brackets'],
-    answer: 'parentheses',
+    title: 'Which one of Sephen Kings film adaptatons did he hate',
+    choices: ['It', 'Pet Semetary', 'The Shining', 'Carrie'],
+    answer: 'The Shining',
   },
   {
-    title: 'Arrays in JavaScript can be used to store ____.',
+    title: 'What is Leatherfaces weapon of choice?',
     choices: [
-      'numbers and strings',
-      'other arrays',
-      'booleans',
-      'all of the above',
+      'machete',
+      'chainsaw',
+      'ice cream cone',
+      'knife',
     ],
-    answer: 'all of the above',
+    answer: 'chainsaw',
   },
   {
     title:
@@ -33,38 +33,79 @@ var questions = [
   },
 ];
 
-var score = 0;
+
+var yourScore = 0;
+
 var timerEl = document.querySelector('.timer');
+
 var timeLeft = 60;
+
 var questionNumber = 0;
+
 var startBtn = document.querySelector('.startbtn');
+
 var questionText = document.querySelector('.questiontxt');
+
 var answerChoices = document.querySelector('.answers');
-var answerResults = document.querySelector('.Results');
-var correctAnswerDisplay = 'Right!!'
-var wrongAnswerDisplay = 'Wrong!!'
+
+var answerResults = document.querySelector('.answerrslt');
+
+var correctAnswerDisplay = 'Right!!';
+
+var wrongAnswerDisplay = 'Wrong!!';
+
 var initialsInputBox = document.createElement('input');
+
 var initialSubmitBtn = document.createElement('input');
-
-
 
 
 
 function getQuestions() {
   var getQuestion = questions[questionNumber];
+
   questionText.textContent = getQuestion.title;
+
   answerChoices.textContent = '';
-var answerList = document.createElement('ul');
+
+  var answerList = document.createElement('ul');
+
+
+  getQuestion.choices.forEach(function (choice) {
+    console.log('testing')
+var listItem = document.createElement('button');
+
+listItem.setAttribute('class', 'mca')
+listItem.textContent = choice;
+
+listItem.addEventListener('click', function () {
+checkAnswer(choice, getQuestion.answer);
+})
+
+answerChoices.appendChild(answerList);
+
+  })
+};
 
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function startQuiz() {
-  startBtn.computedStyleMap.display = 'none';
+  startBtn.style.display = 'none';
   getQuestions();
 
-}
+};
 
 startBtn.addEventListener('click', startQuiz);
