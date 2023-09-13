@@ -58,9 +58,16 @@ var initialsInputBox = document.createElement('input');
 
 var initialSubmitBtn = document.createElement('input');
 
+var timer = null; 
+
 
 
 function getQuestions() {
+  if (questionNumber >= questions.length) {
+    quizEnd();
+    clearInterval(timer);
+    return
+  }
   var getQuestion = questions[questionNumber];
 
   questionText.textContent = getQuestion.title;
@@ -71,31 +78,69 @@ function getQuestions() {
 
 
   getQuestion.choices.forEach(function (choice) {
-    console.log('testing')
+    
 var listItem = document.createElement('button');
 
 listItem.setAttribute('class', 'mca')
 listItem.textContent = choice;
 
+
 listItem.addEventListener('click', function () {
 checkAnswer(choice, getQuestion.answer);
 })
 
-answerChoices.appendChild(answerList);
+answerList.append(listItem);
 
   })
+  answerChoices.appendChild(answerList);
 };
 
 
 
+function checkAnswer(choice, correctAnswer) {
+if (choice === correctAnswer) {
+  console.log('correct')
+} else  {
+  timeLeft -= 10
+console.log('wrong')
+}
+
+questionNumber++;
+getQuestions() 
+}
+
+function handleTimer() {
+  timerEl.textContent = timeLeft
+ timer = setInterval(function() {
+  timerEl.textContent = timeLeft
+  if (timeLeft <= 0) {
+    clearInterval(timer);
+    quizEnd();
+  }
+  timeLeft--
+}, 1000)
+}
 
 
 
 
+function saveScore() {
+  var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+  var initials = document.querySelector('#initials').value;
+  var score = timeLeft;
+  var newEntry = {
+    initials,
+    score,
+
+  }
+  highScores.push(newEntry);
+  localStorage.setItem('highScores', JSON.stringify(highScores) )
+}
 
 
 
 
+document.querySelector('#score-submit').addEventListener('click', saveScore);
 
 
 
@@ -105,7 +150,21 @@ answerChoices.appendChild(answerList);
 function startQuiz() {
   startBtn.style.display = 'none';
   getQuestions();
+  handleTimer();
 
 };
+
+function quizEnd() {
+questionText.style.display = 'none'
+answerChoices.style.display = 'none'
+}
+
+
+
+
+
+
+
+
 
 startBtn.addEventListener('click', startQuiz);
