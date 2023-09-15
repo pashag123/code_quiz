@@ -44,4 +44,4 @@ worked with tutor Scott Everet
 
 ## Deployed link
 
-
+https://pashag123.github.io/code_quiz/
