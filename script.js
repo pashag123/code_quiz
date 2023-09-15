@@ -1,3 +1,5 @@
+
+// variables for all the questions and answers 
 var questions = [
   {
     title: 'What is reviewed as the scariest movie ever made?:',
@@ -21,15 +23,15 @@ var questions = [
   },
   {
     title:
-      'String values must be enclosed within ____ when being assigned to variables.',
-    choices: ['commas', 'curly brackets', 'quotes', 'parentheses'],
-    answer: 'quotes',
+      'Whats another name for halloween?',
+    choices: ['all hallows eve', 'scary day', 'the day of darkness', 'candy night'],
+    answer: 'all hallows eve',
   },
   {
     title:
-      'A very useful tool used during development and debugging for printing content to the debugger is:',
-    choices: ['JavaScript', 'terminal / bash', 'for loops', 'console.log'],
-    answer: 'console.log',
+      'Which horror franchise has the most sequels?',
+    choices: ['Childs Play', 'Halloween', 'Friday the 13th', 'Nightmare On Elm Street'],
+    answer: 'Halloween',
   },
 ];
 
@@ -60,6 +62,18 @@ var initialSubmitBtn = document.createElement('input');
 
 var timer = null; 
 
+var initialsBox = document.querySelector('#score-submit-box');
+
+
+var highScoresBox = document.querySelector('.high-score-box');
+
+
+highScoresBox.style.display = 'none';
+
+initialsBox.style.display = 'none';
+
+
+// function to display questions
 
 
 function getQuestions() {
@@ -135,7 +149,28 @@ function saveScore() {
   }
   highScores.push(newEntry);
   localStorage.setItem('highScores', JSON.stringify(highScores) )
+  initialsBox.style.display = 'none'
+  highScoresBox.style.display = 'block'
+  displayScores() 
+};
+
+
+function displayScores() {
+
+  var highScoresArr = JSON.parse(localStorage.getItem('highScores')) || [];
+  highScoresArr.sort(function(a,b) {
+
+    return b.score - a.score
+  })
+for (i=0; i < highScoresArr.length; i++) {
+var liEl = document.createElement('li')
+liEl.textContent = highScoresArr[i].initials + ' - ' + highScoresArr[i].score
+document.querySelector('.high-score-results').append(liEl)
 }
+}
+
+
+
 
 
 
@@ -157,7 +192,8 @@ function startQuiz() {
 function quizEnd() {
 questionText.style.display = 'none'
 answerChoices.style.display = 'none'
-}
+initialsBox.style.display = 'block'
+};
 
 
 

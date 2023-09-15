@@ -1,0 +1,33 @@
+
+body {
+    background-color: rgb(39, 34, 34);
+    display: flex;
+    justify-content: center;
+}
+
+
+.questiontxt {
+    font-family: Creepster, cursive;
+    font-size: 60px;
+    color: orange;
+    display: flex;
+    justify-content: center;
+    font-weight: 10px;
+}
+
+
+.answers {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    color:red ;
+}
+
+.startbtn {
+    display: flex;
+    justify-content: center;
+}
+
+header {
+    color: red;
+}
